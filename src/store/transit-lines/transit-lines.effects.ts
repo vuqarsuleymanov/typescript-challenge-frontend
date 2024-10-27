@@ -10,7 +10,7 @@ export class TransitLinesEffects {
     () =>
       this.actions$.pipe(
         ofType(TransitLinesActions.SelectStop),
-        map((action) => (action.selectedStopId ? this.router.navigate(['detail']) : this.router.navigate(['home'])))
+        map((action) => (action.selectedStopId ? this.router.navigate(['detail', action.selectedStopId]) : this.router.navigate(['home'])))
       ),
     { dispatch: false }
   )
