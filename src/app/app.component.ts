@@ -51,11 +51,12 @@ export class AppComponent implements OnInit {
       const STOPS_LAYER_ID = 'stops-layer'
       this.map.addLayer({ type: 'circle', source: STOPS_SOURCE_ID, id: STOPS_LAYER_ID, paint: MARKER_PAINT })
 
-      // The following issues are likely to be implemented here
       // https://github.com/targomo/typescript-challenge-frontend/issues/2
-      // https://github.com/targomo/typescript-challenge-frontend/issues/2
-      // https://github.com/targomo/typescript-challenge-frontend/issues/6
-      // https://github.com/targomo/typescript-challenge-frontend/issues/8
+      this.map.on('click', STOPS_LAYER_ID, (e) => {
+        if (e.features.length > 0) {
+          this.store.dispatch(TransitLinesActions.SelectStop({ selectedStopId: e.features[0].id as string }));
+        }
+      });
     })
   }
 }
