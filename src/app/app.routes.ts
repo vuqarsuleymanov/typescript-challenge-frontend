@@ -7,7 +7,7 @@ export const routes: Routes = [
     path: 'home',
     component: HomeComponent,
   },
-  { path: 'detail', component: DetailComponent },
+  { path: 'detail/:id', component: DetailComponent },
   {
     path: '**',
     redirectTo: '/home',

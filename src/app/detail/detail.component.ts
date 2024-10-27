@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store'
 import { RootState } from 'src/store/app.store'
 import { TransitLinesActions } from 'src/store/transit-lines/transit-lines.actions'
 import { fromTransitLines } from 'src/store/transit-lines/transit-lines.selectors'
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-detail',
@@ -17,7 +18,11 @@ import { fromTransitLines } from 'src/store/transit-lines/transit-lines.selector
 export class DetailComponent {
   readonly stopName: Signal<string>
 
-  constructor(private store: Store<RootState>) {
+  constructor(private store: Store<RootState>, private route: ActivatedRoute) {
+    const selectedStopId = this.route.snapshot.paramMap.get('id');
+    if (selectedStopId) {
+      this.store.dispatch(TransitLinesActions.SelectStop({ selectedStopId }))
+    }
     const selectedStop = this.store.selectSignal(fromTransitLines.selectedStop)
     this.stopName = computed(() => selectedStop()?.name || 'No selection')
   }
